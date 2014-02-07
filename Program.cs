@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.Remoting;
 
 namespace DiscreteMathLab4_G
 {
@@ -16,60 +19,40 @@ namespace DiscreteMathLab4_G
             int[] set = new int[n];
             for (int i = 0; i < n; i++)
                 set[i] = i + 1;
-            int[][] current = new int[k][];
-            for (int i = 0; i<k; i++)
-                current[i] = new int[0];
-            PartToSets(current, set);
+            List<int>[] obj = new List<int>[k];
+            for (int i = 0; i < obj.Length; i++)
+                obj[i] = new List<int>();
+            PartToSets(obj, set, 0);
             sw.Close();
         }
 
-        static void PartToSets(int[][] current, int[] set)
+        static void PartToSets(List<int>[] subsets, int[] set, int depth)
         {
-            if (set.Length == 0)
-            {
-                bool complete = true;
-                foreach (int[] a in current)
-                    complete &= a.Length > 0;
-                if (complete)
+            if (depth == set.Length)
+                if (subsets.All(x => x.Count() > 0))
                 {
-                    for (int i = 0; i < current.Length; i++)
+                    foreach (List<int> subset in subsets)
                     {
-                        for (int j = 0; j < current[i].Length; j++)
-                            sw.Write(current[i][j] + " ");
+                        foreach (int number in subset)
+                            sw.Write(number + " ");
                         sw.WriteLine();
                     }
                     sw.WriteLine();
                 }
-            }
+                else ;
             else
             {
-                int number = set[0];
-                int[] nextset = new int[set.Length - 1];
-                for (int i = 0; i < nextset.Length; i++)
-                    nextset[i] = set[i + 1];
-                bool firstempty = true;
-                for (int j = 0; j < current.Length; j++)
+                int numberToAdd = set[depth];
+                bool noEmptySetsBefore = true;
+                foreach (List<int> subset in subsets)
                 {
-                    if (current[j].Length == 0 && firstempty ||
-                        current[j].Length > 0 && current[j][current[j].Length - 1] < number)
+                    if (subset.Count > 0 || noEmptySetsBefore)  //if there are empty subsets, add the number only to the first of them.
                     {
-                        int[][] next = new int[current.Length][];
-                        for (int k = 0; k < current.Length; k++)
-                        {
-                            next[k] = new int[current[k].Length];
-                            for (int m = 0; m < current[k].Length && k != j; m++)
-                            {
-                                next[k][m] = current[k][m];
-                            }
-                        }
-                        int[] nextone = new int[current[j].Length + 1];
-                        for (int k = 0; k < current[j].Length; k++)
-                            nextone[k] = current[j][k];
-                        nextone[nextone.Length - 1] = number;
-                        next[j] = nextone;
-                        PartToSets(next, nextset);
+                        subset.Add(numberToAdd);
+                        PartToSets(subsets, set, depth + 1);
+                        subset.RemoveAt(subset.Count - 1);
                     }
-                    if (current[j].Length == 0) firstempty = false;
+                    if (subset.Count == 0) noEmptySetsBefore = false;
                 }
             }
         }
