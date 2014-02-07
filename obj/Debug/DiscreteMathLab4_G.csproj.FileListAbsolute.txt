@@ -1,0 +1,6 @@
+D:\Workspace\MS VS 2012\DiscreteMathLab4_G\DiscreteMathLab4_G\bin\Debug\DiscreteMathLab4_G.exe.config
+D:\Workspace\MS VS 2012\DiscreteMathLab4_G\DiscreteMathLab4_G\bin\Debug\DiscreteMathLab4_G.exe
+D:\Workspace\MS VS 2012\DiscreteMathLab4_G\DiscreteMathLab4_G\bin\Debug\DiscreteMathLab4_G.pdb
+D:\Workspace\MS VS 2012\DiscreteMathLab4_G\DiscreteMathLab4_G\obj\Debug\DiscreteMathLab4_G.csprojResolveAssemblyReference.cache
+D:\Workspace\MS VS 2012\DiscreteMathLab4_G\DiscreteMathLab4_G\obj\Debug\DiscreteMathLab4_G.exe
+D:\Workspace\MS VS 2012\DiscreteMathLab4_G\DiscreteMathLab4_G\obj\Debug\DiscreteMathLab4_G.pdb
