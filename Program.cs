@@ -26,6 +26,7 @@ namespace DiscreteMathLab4_G
             sw.Close();
         }
 
+        //the recursion is based on set: on depth 'i' we add i-th item in set to subsets, which are appropriate to add the number to
         static void PartToSets(List<int>[] subsets, int[] set, int depth)
         {
             if (depth == set.Length)
@@ -43,16 +44,16 @@ namespace DiscreteMathLab4_G
             else
             {
                 int numberToAdd = set[depth];
-                bool noEmptySetsBefore = true;
+                bool noEmptySubsetsBefore = true;
                 foreach (List<int> subset in subsets)
                 {
-                    if (subset.Count > 0 || noEmptySetsBefore)  //if there are empty subsets, add the number only to the first of them.
+                    if (subset.Count > 0 || noEmptySubsetsBefore)  //if there are empty subsets, add the number only to the first of them.
                     {
                         subset.Add(numberToAdd);
                         PartToSets(subsets, set, depth + 1);
                         subset.RemoveAt(subset.Count - 1);
                     }
-                    if (subset.Count == 0) noEmptySetsBefore = false;
+                    if (subset.Count == 0) noEmptySubsetsBefore = false;
                 }
             }
         }
