@@ -30,7 +30,8 @@ namespace DiscreteMathLab4_G
         static void PartToSets(List<int>[] subsets, int[] set, int depth)
         {
             if (depth == set.Length)
-                if (subsets.All(x => x.Count() > 0))
+            {
+                if (subsets.All(x => x.Any()))
                 {
                     foreach (List<int> subset in subsets)
                     {
@@ -40,21 +41,15 @@ namespace DiscreteMathLab4_G
                     }
                     sw.WriteLine();
                 }
-                else ;
-            else
+                return;
+            }
+            int numberToAdd = set[depth];
+            foreach (List<int> subset in subsets)
             {
-                int numberToAdd = set[depth];
-                bool noEmptySubsetsBefore = true;
-                foreach (List<int> subset in subsets)
-                {
-                    if (subset.Count > 0 || noEmptySubsetsBefore)  //if there are empty subsets, add the number only to the first of them.
-                    {
-                        subset.Add(numberToAdd);
-                        PartToSets(subsets, set, depth + 1);
-                        subset.RemoveAt(subset.Count - 1);
-                    }
-                    if (subset.Count == 0) noEmptySubsetsBefore = false;
-                }
+                subset.Add(numberToAdd);
+                PartToSets(subsets, set, depth + 1);
+                subset.RemoveAt(subset.Count - 1);
+                if (subset.Count == 0) break;
             }
         }
     }
